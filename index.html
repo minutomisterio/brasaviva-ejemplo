@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brasa Viva | Parrilla y cocina de fuego</title>
+<meta name="description" content="Brasa Viva. Mira el menú y pide por WhatsApp.">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#140A0A;--panel:rgba(38,20,20,.72);--red:#EF4444;--yellow:#FACC15;--text:#FFF4EA;--muted:#C9AFA5;--line:rgba(255,255,255,.1)}
+[data-theme=light]{--bg:#FFF8F0;--panel:rgba(255,255,255,.8);--text:#2B1210;--muted:#7A5E58;--line:rgba(0,0,0,.1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden;transition:background .4s,color .4s}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(650px 450px at 90% 0,rgba(239,68,68,.25),transparent),radial-gradient(500px 400px at 0 80%,rgba(250,204,21,.14),transparent)}
+h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.05}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+button{font-family:inherit;cursor:pointer}
+
+nav{position:fixed;top:0;width:100%;z-index:50;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:68px}
+.logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.5rem}
+.logo span{color:var(--red)}
+.links{display:flex;gap:26px;font-weight:500;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.tools{display:flex;gap:10px;align-items:center}
+.ico{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:1.1rem;display:grid;place-items:center}
+.ico:hover{border-color:var(--yellow)}
+#count{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:.72rem;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center}
+.btn{display:inline-block;padding:14px 28px;border-radius:14px;font-weight:700;border:0;color:#1a0a05;background:linear-gradient(90deg,var(--yellow),#fb923c);box-shadow:0 12px 30px -10px rgba(250,204,21,.6);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}
+
+.hero{min-height:100vh;display:grid;align-items:center;padding:110px 0 60px}
+.hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.03em}
+.hero h1 b{color:var(--red)}
+.hero p{color:var(--muted);max-width:46ch;margin:22px 0 32px;font-size:1.1rem}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.seal{position:relative;width:min(380px,80vw);aspect-ratio:1;margin:auto;display:grid;place-items:center}
+.seal svg{position:absolute;inset:0;animation:turn 22s linear infinite;fill:var(--text);font:700 15.5px 'DM Sans',sans-serif;letter-spacing:.16em}
+.seal .core{width:62%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--yellow),var(--red) 70%);display:grid;place-items:center;font-size:6rem;box-shadow:0 30px 60px -15px rgba(239,68,68,.7);animation:pulse 3s ease-in-out infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{transform:scale(1.05)}}
+
+section{padding:90px 0}
+.title{margin-bottom:34px}
+.title h2{font-size:clamp(2.1rem,5vw,3.4rem);letter-spacing:-.02em}
+.title p{color:var(--muted);margin-top:10px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+.tab{padding:10px 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-weight:700}
+.tab.on{background:var(--red);border-color:var(--red);color:#fff}
+
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.dish{background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:24px;padding:16px;transition:border-color .3s,box-shadow .3s;will-change:transform}
+.dish:hover{border-color:var(--yellow);box-shadow:0 25px 50px -22px rgba(250,204,21,.5)}
+.pic{height:150px;border-radius:16px;display:grid;place-items:center;font-size:4.2rem;background:linear-gradient(135deg,rgba(239,68,68,.35),rgba(250,204,21,.25))}
+.dish h3{font-size:1.3rem;margin:14px 4px 4px}
+.dish p{color:var(--muted);font-size:.9rem;margin:0 4px 14px}
+.foot{display:flex;justify-content:space-between;align-items:center;margin:0 4px 4px}
+.foot b{font-size:1.35rem;font-family:'Bricolage Grotesque',sans-serif}
+.add{width:42px;height:42px;border-radius:12px;border:0;background:var(--red);color:#fff;font-size:1.4rem;font-weight:700;transition:transform .15s}
+.add:hover{transform:scale(1.1) rotate(90deg)}
+
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:28px}
+.box h3{font-size:1.3rem;margin-bottom:8px;color:var(--yellow)}
+.box p{color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-size:.85rem}
+
+/* carrito */
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;opacity:0;pointer-events:none;transition:opacity .3s}
+#ov.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);z-index:100;background:var(--bg);border-left:1px solid var(--line);transform:translateX(100%);transition:transform .35s;display:flex;flex-direction:column;padding:24px}
+#drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.dh h3{font-size:1.5rem}
+#items{flex:1;overflow-y:auto;display:grid;gap:10px;align-content:start}
+.it{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+.it small{color:var(--muted);display:block}
+.q{display:flex;gap:8px;align-items:center}
+.q button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);font-weight:700}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+.tot{display:flex;justify-content:space-between;font-size:1.3rem;font-weight:700;padding:16px 0;border-top:1px solid var(--line);margin-top:12px}
+.tot span:last-child{color:var(--yellow)}
+input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;margin-bottom:12px}
+.wa{width:100%;background:linear-gradient(90deg,#10b981,#059669);color:#fff;box-shadow:0 10px 30px -10px rgba(16,185,129,.6)}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--red);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;transition:transform .35s;z-index:120}
+#toast.on{transform:translate(-50%,0)}
+
+@media(max-width:860px){.links{display:none}.hero .wrap{grid-template-columns:1fr}.seal{order:-1;width:min(260px,70vw)}.seal .core{font-size:4rem}}
+@media(prefers-reduced-motion:reduce){.seal svg,.seal .core{animation:none}html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a href="#inicio" class="logo">Brasa<span>Viva</span></a>
+  <div class="links"><a href="#menu">Menú</a><a href="#info">Horarios</a></div>
+  <div class="tools">
+    <button class="ico" id="theme" aria-label="Cambiar tema claro u oscuro">☀</button>
+    <button class="ico" id="open" aria-label="Abrir pedido">🛒<span id="count">0</span></button>
+  </div>
+</div></nav>
+
+<header class="hero" id="inicio"><div class="wrap">
+  <div>
+    <h1>Cocina a la <b>brasa</b>, pedido en un toque.</h1>
+    <p>Carnes a las brasas, pastas caseras y postres del día. Arma tu pedido y lo enviamos directo a nuestro WhatsApp.</p>
+    <div class="cta"><a href="#menu" class="btn">Ver el menú</a><a href="#info" class="btn ghost">Horarios y envíos</a></div>
+  </div>
+  <div class="seal">
+    <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="c" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0"/></defs><text><textPath href="#c">PARRILLA • PASTAS • POSTRES • PARRILLA • PASTAS • POSTRES •</textPath></text></svg>
+    <div class="core" role="img" aria-label="Corte de carne">🥩</div>
+  </div>
+</div></header>
+
+<section id="menu"><div class="wrap">
+  <div class="title"><h2>Nuestro menú</h2><p>Toca + para sumar un plato a tu pedido.</p></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="menu" id="menuGrid"></div>
+</div></section>
+
+<section id="info"><div class="wrap">
+  <div class="title"><h2>Cuándo y cómo</h2></div>
+  <div class="info">
+    <div class="box"><h3>Horarios</h3><p>Martes a domingo, de 12 a 15 h y de 20 a 24 h.</p></div>
+    <div class="box"><h3>Envíos</h3><p>Delivery en 40 minutos dentro de la zona. También retiras en el local.</p></div>
+    <div class="box"><h3>Pagos</h3><p>Efectivo, transferencia o tarjeta al recibir.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">© 2026 Brasa Viva · Página de ejemplo</div></footer>
+
+<div id="ov"></div>
+<aside id="drawer" aria-label="Tu pedido">
+  <div class="dh"><h3>Tu pedido</h3><button class="ico" id="close" aria-label="Cerrar">✕</button></div>
+  <div id="items"></div>
+  <div class="tot"><span>Total</span><span id="total">$0</span></div>
+  <input id="nm" placeholder="Tu nombre">
+  <input id="ad" placeholder="Dirección o “retiro en local”">
+  <button class="btn wa" id="send">Pedir por WhatsApp</button>
+</aside>
+<div id="toast" role="status"></div>
+
+<script>
+const PHONE='5491100000000'; // reemplazar por el número real del cliente
+const DISHES=[
+ {n:'Bife de chorizo',d:'350 g a la parrilla con papas rústicas.',p:16500,c:'Parrilla',e:'🥩'},
+ {n:'Costillar BBQ',d:'Cocción lenta, glaseado ahumado.',p:18900,c:'Parrilla',e:'🍖'},
+ {n:'Provoleta',d:'Queso fundido con orégano y tomate.',p:7200,c:'Parrilla',e:'🧀'},
+ {n:'Ñoquis de papa',d:'Con salsa fileto o crema de hongos.',p:11800,c:'Pastas',e:'🍝'},
+ {n:'Ravioles de ricota',d:'Salsa a elección, hechos en casa.',p:12400,c:'Pastas',e:'🥟'},
+ {n:'Lasaña de carne',d:'Gratinada al horno con bechamel.',p:13200,c:'Pastas',e:'🍲'},
+ {n:'Flan con dulce de leche',d:'Con crema chantilly.',p:5200,c:'Postres',e:'🍮'},
+ {n:'Brownie caliente',d:'Con helado de crema americana.',p:6100,c:'Postres',e:'🍫'},
+ {n:'Limonada de menta',d:'Jarra individual bien fría.',p:3800,c:'Bebidas',e:'🍋'},
+ {n:'Cerveza artesanal',d:'Pinta rubia, roja o negra.',p:4500,c:'Bebidas',e:'🍺'}
+];
+const money=n=>'$'+n.toLocaleString('es-AR');
+let cart=[],cat='Todos';
+const $=id=>document.getElementById(id);
+
+function say(t){const x=$('toast');x.textContent=t;x.classList.add('on');setTimeout(()=>x.classList.remove('on'),1800)}
+
+function renderTabs(){
+  const cats=['Todos',...new Set(DISHES.map(d=>d.c))];
+  $('tabs').innerHTML=cats.map(c=>`<button class="tab ${c===cat?'on':''}" data-c="${c}">${c}</button>`).join('');
+  $('tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{cat=b.dataset.c;renderTabs();renderMenu()});
+}
+function renderMenu(){
+  $('menuGrid').innerHTML=DISHES.map((d,i)=>({...d,i})).filter(d=>cat==='Todos'||d.c===cat).map(d=>`
+   <article class="dish"><div class="pic">${d.e}</div><h3>${d.n}</h3><p>${d.d}</p>
+   <div class="foot"><b>${money(d.p)}</b><button class="add" data-i="${d.i}" aria-label="Agregar ${d.n}">+</button></div></article>`).join('');
+  $('menuGrid').querySelectorAll('.add').forEach(b=>b.onclick=()=>addItem(+b.dataset.i));
+  $('menuGrid').querySelectorAll('.dish').forEach(c=>{
+    c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateX(${-y*12}deg) rotateY(${x*12}deg)`});
+    c.addEventListener('mouseleave',()=>c.style.transform='');
+  });
+}
+function addItem(i){
+  const d=DISHES[i],f=cart.find(x=>x.i===i);
+  f?f.q++:cart.push({i,q:1});
+  renderCart();say(d.n+' agregado');
+}
+function change(i,delta){
+  const f=cart.find(x=>x.i===i);f.q+=delta;
+  if(f.q<=0)cart=cart.filter(x=>x.i!==i);
+  renderCart();
+}
+function renderCart(){
+  const n=cart.reduce((a,x)=>a+x.q,0),sum=cart.reduce((a,x)=>a+x.q*DISHES[x.i].p,0);
+  $('count').textContent=n;$('total').textContent=money(sum);
+  $('items').innerHTML=cart.length?cart.map(x=>`<div class="it"><div>${DISHES[x.i].n}<small>${money(DISHES[x.i].p*x.q)}</small></div>
+   <div class="q"><button data-i="${x.i}" data-d="-1" aria-label="Quitar uno">−</button><b>${x.q}</b><button data-i="${x.i}" data-d="1" aria-label="Sumar uno">+</button></div></div>`).join(''):'<p class="empty">Tu pedido está vacío. Agrega platos del menú.</p>';
+  $('items').querySelectorAll('.q button').forEach(b=>b.onclick=()=>change(+b.dataset.i,+b.dataset.d));
+}
+const open=()=>{$('drawer').classList.add('on');$('ov').classList.add('on')};
+const close=()=>{$('drawer').classList.remove('on');$('ov').classList.remove('on')};
+$('open').onclick=open;$('close').onclick=close;$('ov').onclick=close;
+$('theme').onclick=()=>{const h=document.documentElement,l=h.dataset.theme==='dark';h.dataset.theme=l?'light':'dark';$('theme').textContent=l?'☾':'☀'};
+
+$('send').onclick=()=>{
+  if(!cart.length){say('Agrega al menos un plato');return}
+  const sum=cart.reduce((a,x)=>a+x.q*DISHES[x.i].p,0);
+  let m='*NUEVO PEDIDO - Brasa Viva*\n\n';
+  cart.forEach((x,k)=>{m+=`${k+1}. ${DISHES[x.i].n} x${x.q} - ${money(x.q*DISHES[x.i].p)}\n`});
+  m+=`\n*Total:* ${money(sum)}\n`;
+  if($('nm').value)m+=`Nombre: ${$('nm').value}\n`;
+  if($('ad').value)m+=`Entrega: ${$('ad').value}\n`;
+  window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(m)}`,'_blank');
+};
+
+renderTabs();renderMenu();renderCart();
+</script>
+</body>
+</html>
